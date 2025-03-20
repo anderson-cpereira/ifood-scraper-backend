@@ -91,6 +91,9 @@ def configurar_driver(headless: bool = True) -> webdriver.Chrome:
     chrome_options.add_argument("--disable-web-security")
     chrome_options.add_argument("--verbose")
     chrome_options.add_argument("--log-level=0")
+    # Adicionar opções para evitar conflitos de estado
+    chrome_options.add_argument("--no-first-run")
+    chrome_options.add_argument("--disable-sync")
     chrome_options.add_experimental_option("prefs", {
         "profile.default_content_setting_values.geolocation": 1
     })
