@@ -27,6 +27,7 @@ import base64
 import yaml
 import platform
 import subprocess  # Adicionado aqui
+from xvfbwrapper import Xvfb
 
 # Configuração de logging
 logging.basicConfig(
@@ -80,7 +81,7 @@ def configurar_driver(headless: bool = True) -> webdriver.Chrome:
         chrome_options.add_argument("--disable-popup-blocking")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36")
+    chrome_options.add_argument("user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36")
     chrome_options.add_argument("--ignore-certificate-errors")
     chrome_options.add_argument("--disable-web-security")
     chrome_options.add_argument("--verbose")
@@ -116,6 +117,12 @@ def configurar_driver(headless: bool = True) -> webdriver.Chrome:
         raise FileNotFoundError(f"ChromeDriver não encontrado em: {chromedriver_path}")
     servico = Service(executable_path=chromedriver_path)
 
+    # Usar Xvfb no Linux para simular display
+    if platform.system() != "Windows" and headless:
+        vdisplay = Xvfb(width=1280, height=720)
+        vdisplay.start()
+        logger.info("Xvfb iniciado para simular display virtual.")
+
     try:
         driver = webdriver.Chrome(service=servico, options=chrome_options)
         driver.set_window_size(1280, 720)
@@ -123,7 +130,11 @@ def configurar_driver(headless: bool = True) -> webdriver.Chrome:
         return driver
     except WebDriverException as e:
         logger.error(f"Falha ao iniciar o ChromeDriver: {e}")
-        raise  
+        raise
+    finally:
+        if platform.system() != "Windows" and headless and 'vdisplay' in locals():
+            vdisplay.stop()
+            logger.info("Xvfb encerrado.")
 
 '''
 def configurar_driver(headless: bool = True) -> webdriver.Chrome:
