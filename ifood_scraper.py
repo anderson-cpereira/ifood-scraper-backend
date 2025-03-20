@@ -29,6 +29,7 @@ import platform
 import subprocess  # Adicionado aqui
 from xvfbwrapper import Xvfb
 import tempfile
+import shutil
 
 # Configuração de logging
 logging.basicConfig(
@@ -82,9 +83,7 @@ def configurar_driver(headless: bool = True) -> webdriver.Chrome:
         chrome_options.add_argument("--disable-popup-blocking")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
-    # Criar um diretório temporário único para user-data-dir
-    temp_dir = tempfile.mkdtemp()
-    chrome_options.add_argument(f"--user-data-dir={temp_dir}")
+    # Removido --user-data-dir para testar o comportamento padrão
     chrome_options.add_argument("user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36")
     chrome_options.add_argument("--ignore-certificate-errors")
     chrome_options.add_argument("--disable-web-security")
@@ -120,6 +119,8 @@ def configurar_driver(headless: bool = True) -> webdriver.Chrome:
     if not os.path.exists(chromedriver_path):
         raise FileNotFoundError(f"ChromeDriver não encontrado em: {chromedriver_path}")
     servico = Service(executable_path=chromedriver_path)
+    logger.info(f"ChromeDriver path: {chromedriver_path}")
+    logger.info(f"Chrome options: {chrome_options.arguments}")
 
     # Usar Xvfb no Linux para simular display
     if platform.system() != "Windows" and headless:
@@ -139,11 +140,6 @@ def configurar_driver(headless: bool = True) -> webdriver.Chrome:
         if platform.system() != "Windows" and headless and 'vdisplay' in locals():
             vdisplay.stop()
             logger.info("Xvfb encerrado.")
-            # Limpar o diretório temporário
-            if os.path.exists(temp_dir):
-                import shutil
-                shutil.rmtree(temp_dir)
-                logger.info(f"Diretório temporário {temp_dir} removido.")
 
 '''
 def configurar_driver(headless: bool = True) -> webdriver.Chrome:
