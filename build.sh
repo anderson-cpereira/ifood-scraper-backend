@@ -7,8 +7,8 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 ar x google-chrome-stable_current_amd64.deb
 tar -xvf data.tar.xz
 mkdir -p ./chrome
-mv usr/lib/chromium-browser/chrome ./chrome/chrome
-rm -rf google-chrome-stable_current_amd64.deb data.tar.xz usr control.tar.gz
+mv opt/google/chrome/chrome ./chrome/chrome
+rm -rf google-chrome-stable_current_amd64.deb data.tar.xz opt control.tar.gz
 # Instalar ChromeDriver no diretório local
 wget https://storage.googleapis.com/chrome-for-testing-public/129.0.6668.100/linux64/chromedriver-linux64.zip
 unzip chromedriver-linux64.zip
