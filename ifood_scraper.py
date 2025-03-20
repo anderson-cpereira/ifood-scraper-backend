@@ -28,6 +28,7 @@ import yaml
 import platform
 import subprocess  # Adicionado aqui
 from xvfbwrapper import Xvfb
+import tempfile
 
 # Configuração de logging
 logging.basicConfig(
@@ -66,7 +67,7 @@ def validar_seletores(type_search: str, driver: webdriver.Chrome, config: Dict[s
     except TimeoutException:
         logger.error("Seletores do config.yaml não encontrados. Verifique o arquivo de configuração.")
         return False
-
+    
 def configurar_driver(headless: bool = True) -> webdriver.Chrome:
     chrome_options = Options()
     if headless:
@@ -81,6 +82,9 @@ def configurar_driver(headless: bool = True) -> webdriver.Chrome:
         chrome_options.add_argument("--disable-popup-blocking")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
+    # Criar um diretório temporário único para user-data-dir
+    temp_dir = tempfile.mkdtemp()
+    chrome_options.add_argument(f"--user-data-dir={temp_dir}")
     chrome_options.add_argument("user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36")
     chrome_options.add_argument("--ignore-certificate-errors")
     chrome_options.add_argument("--disable-web-security")
@@ -135,6 +139,11 @@ def configurar_driver(headless: bool = True) -> webdriver.Chrome:
         if platform.system() != "Windows" and headless and 'vdisplay' in locals():
             vdisplay.stop()
             logger.info("Xvfb encerrado.")
+            # Limpar o diretório temporário
+            if os.path.exists(temp_dir):
+                import shutil
+                shutil.rmtree(temp_dir)
+                logger.info(f"Diretório temporário {temp_dir} removido.")
 
 '''
 def configurar_driver(headless: bool = True) -> webdriver.Chrome:
