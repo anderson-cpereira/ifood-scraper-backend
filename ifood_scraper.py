@@ -64,16 +64,16 @@ def validar_seletores(type_search: str, driver: webdriver.Chrome, config: Dict[s
     except TimeoutException:
         logger.error("Seletores do config.yaml não encontrados. Verifique o arquivo de configuração.")
         return False
-    
+
 def configurar_driver(headless: bool = True) -> webdriver.Chrome:
     chrome_options = Options()
     if headless:
-        chrome_options.add_argument("--headless=new")  # Nova implementação do headless
+        chrome_options.add_argument("--headless=new")
         chrome_options.add_argument("--disable-gpu")
         chrome_options.add_argument("--disable-software-rasterizer")
         chrome_options.add_argument("--remote-debugging-port=9222")
-        chrome_options.add_argument("--disable-extensions")  # Desativa extensões
-        chrome_options.add_argument("--disable-background-networking")  # Evita tráfego em segundo plano
+        chrome_options.add_argument("--disable-extensions")
+        chrome_options.add_argument("--disable-background-networking")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36")
@@ -91,7 +91,17 @@ def configurar_driver(headless: bool = True) -> webdriver.Chrome:
         chromedriver_path = os.path.join(os.path.dirname(__file__), "chromedriver", "chromedriver")
         chrome_binary = os.path.join(os.path.dirname(__file__), "chrome", "chrome")
         if os.path.exists(chrome_binary):
+            # Verificar se o binário é executável
+            if not os.access(chrome_binary, os.X_OK):
+                logger.error(f"Chrome binary não é executável: {chrome_binary}")
+                raise FileNotFoundError(f"Chrome binary não é executável: {chrome_binary}")
             chrome_options.binary_location = chrome_binary
+            # Testar o binário manualmente
+            try:
+                result = subprocess.run([chrome_binary, "--version"], capture_output=True, text=True)
+                logger.info(f"Versão do Chrome: {result.stdout}")
+            except Exception as e:
+                logger.error(f"Falha ao testar o Chrome binary: {e}")
         else:
             raise FileNotFoundError(f"Chrome binary não encontrado em: {chrome_binary}")
 
@@ -106,7 +116,8 @@ def configurar_driver(headless: bool = True) -> webdriver.Chrome:
         return driver
     except WebDriverException as e:
         logger.error(f"Falha ao iniciar o ChromeDriver: {e}")
-        raise
+        raise    
+
 '''
 def configurar_driver(headless: bool = True) -> webdriver.Chrome:
     chrome_options = Options()
