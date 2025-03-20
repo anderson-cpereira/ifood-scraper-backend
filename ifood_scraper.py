@@ -84,6 +84,11 @@ def configurar_driver(headless: bool = True) -> webdriver.Chrome:
         chromedriver_path = os.path.join(os.path.dirname(__file__), "chromedriver.exe")
     else:  # Linux (Render)
         chromedriver_path = os.path.join(os.path.dirname(__file__), "chromedriver", "chromedriver")
+        chrome_binary = os.path.join(os.path.dirname(__file__), "chrome", "chrome")
+        if os.path.exists(chrome_binary):
+            chrome_options.binary_location = chrome_binary
+        else:
+            raise FileNotFoundError(f"Chrome binary não encontrado em: {chrome_binary}")
 
     if not os.path.exists(chromedriver_path):
         raise FileNotFoundError(f"ChromeDriver não encontrado em: {chromedriver_path}")
