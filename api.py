@@ -26,7 +26,7 @@ app = FastAPI(title="iFood Scraping API")
 # Configuração de CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:4200"],
+    allow_origins=["https://anderson-cpereira.github.io/"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
