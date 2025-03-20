@@ -1,0 +1,136 @@
+2025-03-20 12:47:51,277 - INFO - Iniciando scrape_ifood com produtos no(a): [{'produto': 'batata', 'quantidade': 1}], max_produtos: 1, task_id: 3a08f469-956f-4a14-99fb-e7272bdeeac5
+2025-03-20 12:47:51,282 - INFO - Limpando diretório de imagens antes de nova busca...
+2025-03-20 12:47:51,284 - INFO - Imagem antiga removida: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\Angeloni Supermercado - Joinville.png
+2025-03-20 12:47:51,286 - INFO - Imagem antiga removida: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\Atacadão Joinville.png
+2025-03-20 12:47:51,289 - INFO - Imagem antiga removida: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\Bistek Joinville.png
+2025-03-20 12:47:51,292 - INFO - Imagem antiga removida: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\Doca Supermercadinhos.png
+2025-03-20 12:47:51,295 - INFO - Imagem antiga removida: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\Fort Atacadista - 305 Joinville.png
+2025-03-20 12:47:51,297 - INFO - Imagem antiga removida: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\Giassi - América.png
+2025-03-20 12:47:51,301 - INFO - Imagem antiga removida: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\Mercado Brasilia - Iririu.png
+2025-03-20 12:47:51,303 - INFO - Imagem antiga removida: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\Mercado Dona Janda.png
+2025-03-20 12:47:51,305 - INFO - Imagem antiga removida: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\produto_Angeloni Supermercado - Joinville_Cerveja American Lager Budweiser 350ml.png
+2025-03-20 12:47:51,308 - INFO - Imagem antiga removida: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\produto_Atacadão Joinville_Cerveja Nacional Opa Bier Pilsen Lata 350ml.png
+2025-03-20 12:47:51,311 - INFO - Imagem antiga removida: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\produto_Bistek Joinville_Cerveja Skol Pilsen 350ml Lata.png
+2025-03-20 12:47:51,313 - INFO - Imagem antiga removida: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\produto_Doca Supermercadinhos_Cerveja Heineken Lata Sleek 350ml.png
+2025-03-20 12:47:51,316 - INFO - Imagem antiga removida: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\produto_Fort Atacadista - 305 Joinville_Cerveja Amstel Garrafa 355ml.png
+2025-03-20 12:47:51,319 - INFO - Imagem antiga removida: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\produto_Giassi - América_Cerveja Amstel Lata Sleek 350ml.png
+2025-03-20 12:47:51,321 - INFO - Imagem antiga removida: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\produto_Mercado Brasilia - Iririu_Cerveja Kaiser Lt 350ml.png
+2025-03-20 12:47:51,324 - INFO - Imagem antiga removida: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\produto_Mercado Dona Janda_Cerveja Long Neck Heineken 330ml.png
+2025-03-20 12:47:51,325 - INFO - Configurando o driver...
+2025-03-20 12:47:52,809 - INFO - Driver configurado com sucesso (headless=True).
+2025-03-20 12:47:57,031 - INFO - Seletores principais validados com sucesso.
+2025-03-20 12:47:59,965 - INFO - Aguardando o botão 'Usar minha localização'...
+2025-03-20 12:48:00,735 - INFO - Aguardando a lista de mercados carregar...
+2025-03-20 12:48:02,753 - INFO - Localização definida e lista de mercados carregada!
+2025-03-20 12:48:02,754 - INFO - Rolando a página para carregar até 100 itens...
+2025-03-20 12:48:03,392 - INFO - Fim da página alcançado.
+2025-03-20 12:48:03,393 - INFO - Total de mercados encontrados: 8
+2025-03-20 12:48:03,564 - INFO - Informações coletadas do mercado 1: Atacadão Joinville
+2025-03-20 12:48:03,687 - INFO - Informações coletadas do mercado 2: Giassi - América
+2025-03-20 12:48:03,784 - INFO - Informações coletadas do mercado 3: Bistek Joinville
+2025-03-20 12:48:03,880 - INFO - Informações coletadas do mercado 4: Mercado Brasilia - Iririu
+2025-03-20 12:48:03,971 - INFO - Informações coletadas do mercado 5: Doca Supermercadinhos
+2025-03-20 12:48:04,059 - INFO - Informações coletadas do mercado 6: Mercado Dona Janda
+2025-03-20 12:48:04,150 - INFO - Informações coletadas do mercado 7: Angeloni Supermercado - Joinville
+2025-03-20 12:48:04,240 - INFO - Informações coletadas do mercado 8: Fort Atacadista - 305 Joinville
+2025-03-20 12:48:04,538 - INFO - Imagem salva em: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\Atacadão Joinville.png
+2025-03-20 12:48:04,547 - INFO - Imagem salva em: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\Giassi - América.png
+2025-03-20 12:48:04,551 - INFO - Imagem salva em: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\Bistek Joinville.png
+2025-03-20 12:48:04,551 - INFO - Imagem salva em: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\Mercado Brasilia - Iririu.png
+2025-03-20 12:48:04,848 - INFO - Imagem salva em: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\Angeloni Supermercado - Joinville.png
+2025-03-20 12:48:04,861 - INFO - Imagem salva em: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\Doca Supermercadinhos.png
+2025-03-20 12:48:04,869 - INFO - Imagem salva em: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\Fort Atacadista - 305 Joinville.png
+2025-03-20 12:48:04,890 - INFO - Imagem salva em: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\Mercado Dona Janda.png
+2025-03-20 12:48:04,894 - INFO - Pesquisando 'batata' no mercado Atacadão Joinville...
+2025-03-20 12:48:04,895 - INFO - Acessando o mercado: https://www.ifood.com.br/delivery/joinville-sc/atacadao-joinville-gloria/b8233492-fa68-40bd-a232-86038a33fe5f
+2025-03-20 12:48:06,102 - INFO - Pesquisando por 'batata' em Atacadão Joinville (filtro numérico: None)
+2025-03-20 12:48:06,819 - INFO - Aguardando primeiros resultados da pesquisa...
+2025-03-20 12:48:07,913 - INFO - Rolando a página para carregar até 1 itens...
+2025-03-20 12:48:07,926 - INFO - Carregados 49 itens, suficiente para 1.
+2025-03-20 12:48:07,927 - INFO - Total de produtos encontrados para 'batata': 1
+2025-03-20 12:48:08,008 - INFO - Produto 1 processado: Batata Palha Extrafina Yoki 100g
+2025-03-20 12:48:08,560 - INFO - Imagem salva em: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\produto_Atacadão Joinville_Batata Palha Extrafina Yoki 100g.png
+2025-03-20 12:48:08,563 - INFO - Total de produtos filtrados: 1
+2025-03-20 12:48:09,229 - INFO - Mercado processado com produtos: Atacadão Joinville
+2025-03-20 12:48:09,230 - INFO - Pesquisando 'batata' no mercado Giassi - América...
+2025-03-20 12:48:09,231 - INFO - Acessando o mercado: https://www.ifood.com.br/delivery/joinville-sc/giassi---america-america/f09948f4-5521-4838-8f5d-997c4f3ff59d
+2025-03-20 12:48:10,266 - INFO - Pesquisando por 'batata' em Giassi - América (filtro numérico: None)
+2025-03-20 12:48:10,723 - INFO - Aguardando primeiros resultados da pesquisa...
+2025-03-20 12:48:11,817 - INFO - Rolando a página para carregar até 1 itens...
+2025-03-20 12:48:11,827 - INFO - Carregados 59 itens, suficiente para 1.
+2025-03-20 12:48:11,828 - INFO - Total de produtos encontrados para 'batata': 1
+2025-03-20 12:48:11,898 - INFO - Produto 1 processado: Batata Sabor Creme e Cebola Pringles 109g
+2025-03-20 12:48:12,515 - INFO - Imagem salva em: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\produto_Giassi - América_Batata Sabor Creme e Cebola Pringles 109g.png
+2025-03-20 12:48:12,518 - INFO - Total de produtos filtrados: 1
+2025-03-20 12:48:13,837 - INFO - Mercado processado com produtos: Giassi - América
+2025-03-20 12:48:13,838 - INFO - Pesquisando 'batata' no mercado Bistek Joinville...
+2025-03-20 12:48:13,838 - INFO - Acessando o mercado: https://www.ifood.com.br/delivery/joinville-sc/bistek-joinville-aventureiro/f03557e2-d676-4657-b8cd-9adcdc3375db
+2025-03-20 12:48:15,279 - INFO - Pesquisando por 'batata' em Bistek Joinville (filtro numérico: None)
+2025-03-20 12:48:16,019 - INFO - Aguardando primeiros resultados da pesquisa...
+2025-03-20 12:48:16,646 - INFO - Rolando a página para carregar até 1 itens...
+2025-03-20 12:48:16,657 - INFO - Carregados 34 itens, suficiente para 1.
+2025-03-20 12:48:16,658 - INFO - Total de produtos encontrados para 'batata': 1
+2025-03-20 12:48:16,733 - INFO - Produto 1 processado: Batata Lavada 700g
+2025-03-20 12:48:17,236 - INFO - Imagem salva em: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\produto_Bistek Joinville_Batata Lavada 700g.png
+2025-03-20 12:48:17,240 - INFO - Total de produtos filtrados: 1
+2025-03-20 12:48:17,796 - INFO - Mercado processado com produtos: Bistek Joinville
+2025-03-20 12:48:17,797 - INFO - Pesquisando 'batata' no mercado Mercado Brasilia - Iririu...
+2025-03-20 12:48:17,798 - INFO - Acessando o mercado: https://www.ifood.com.br/delivery/joinville-sc/mercado-brasilia---iririu-jardim-iririu/2c9c2f37-57fd-4df0-b849-37759f9a889e
+2025-03-20 12:48:19,451 - INFO - Pesquisando por 'batata' em Mercado Brasilia - Iririu (filtro numérico: None)
+2025-03-20 12:48:20,418 - INFO - Aguardando primeiros resultados da pesquisa...
+2025-03-20 12:48:21,042 - INFO - Rolando a página para carregar até 1 itens...
+2025-03-20 12:48:21,054 - INFO - Carregados 21 itens, suficiente para 1.
+2025-03-20 12:48:21,054 - INFO - Total de produtos encontrados para 'batata': 1
+2025-03-20 12:48:21,141 - INFO - Produto 1 processado: Batata Pré Frita Mais Batata Bem Brasil 400g
+2025-03-20 12:48:21,315 - INFO - Imagem salva em: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\produto_Mercado Brasilia - Iririu_Batata Pré Frita Mais Batata Bem Brasil 400g.png
+2025-03-20 12:48:21,317 - INFO - Total de produtos filtrados: 1
+2025-03-20 12:48:22,730 - INFO - Mercado processado com produtos: Mercado Brasilia - Iririu
+2025-03-20 12:48:22,731 - INFO - Pesquisando 'batata' no mercado Doca Supermercadinhos...
+2025-03-20 12:48:22,731 - INFO - Acessando o mercado: https://www.ifood.com.br/delivery/joinville-sc/doca-supermercadinhos-santa-catarina/746654bf-0542-4565-b081-18eae391939c
+2025-03-20 12:48:23,701 - INFO - Pesquisando por 'batata' em Doca Supermercadinhos (filtro numérico: None)
+2025-03-20 12:48:24,081 - INFO - Aguardando primeiros resultados da pesquisa...
+2025-03-20 12:48:24,732 - INFO - Rolando a página para carregar até 1 itens...
+2025-03-20 12:48:24,743 - INFO - Carregados 14 itens, suficiente para 1.
+2025-03-20 12:48:24,743 - INFO - Total de produtos encontrados para 'batata': 1
+2025-03-20 12:48:24,827 - INFO - Produto 1 processado: Batata Kg
+2025-03-20 12:48:25,603 - INFO - Imagem salva em: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\produto_Doca Supermercadinhos_Batata Kg.png
+2025-03-20 12:48:25,606 - INFO - Total de produtos filtrados: 1
+2025-03-20 12:48:27,017 - INFO - Mercado processado com produtos: Doca Supermercadinhos
+2025-03-20 12:48:27,018 - INFO - Pesquisando 'batata' no mercado Mercado Dona Janda...
+2025-03-20 12:48:27,018 - INFO - Acessando o mercado: https://www.ifood.com.br/delivery/joinville-sc/mercado-dona-janda-bom-retiro/0a93a7fb-09a9-4c6e-a6b0-32a125194c16
+2025-03-20 12:48:28,177 - INFO - Pesquisando por 'batata' em Mercado Dona Janda (filtro numérico: None)
+2025-03-20 12:48:28,881 - INFO - Aguardando primeiros resultados da pesquisa...
+2025-03-20 12:48:29,447 - INFO - Rolando a página para carregar até 1 itens...
+2025-03-20 12:48:29,457 - INFO - Carregados 12 itens, suficiente para 1.
+2025-03-20 12:48:29,458 - INFO - Total de produtos encontrados para 'batata': 1
+2025-03-20 12:48:29,530 - INFO - Produto 1 processado: Batata Inglesa Lavada Kg
+2025-03-20 12:48:30,064 - INFO - Imagem salva em: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\produto_Mercado Dona Janda_Batata Inglesa Lavada Kg.png
+2025-03-20 12:48:30,068 - INFO - Total de produtos filtrados: 1
+2025-03-20 12:48:31,357 - INFO - Mercado processado com produtos: Mercado Dona Janda
+2025-03-20 12:48:31,358 - INFO - Pesquisando 'batata' no mercado Angeloni Supermercado - Joinville...
+2025-03-20 12:48:31,358 - INFO - Acessando o mercado: https://www.ifood.com.br/delivery/joinville-sc/angeloni-supermercado---joinville-america/cd69fea9-0c5d-4d4b-94e5-605f7be21f83
+2025-03-20 12:48:32,339 - INFO - Pesquisando por 'batata' em Angeloni Supermercado - Joinville (filtro numérico: None)
+2025-03-20 12:48:32,906 - INFO - Aguardando primeiros resultados da pesquisa...
+2025-03-20 12:48:34,092 - INFO - Rolando a página para carregar até 1 itens...
+2025-03-20 12:48:34,106 - INFO - Carregados 81 itens, suficiente para 1.
+2025-03-20 12:48:34,107 - INFO - Total de produtos encontrados para 'batata': 1
+2025-03-20 12:48:34,170 - INFO - Produto 1 processado: Batata Frita Lisa Clássica Lays 70g
+2025-03-20 12:48:34,346 - INFO - Imagem salva em: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\produto_Angeloni Supermercado - Joinville_Batata Frita Lisa Clássica Lays 70g.png
+2025-03-20 12:48:34,348 - INFO - Total de produtos filtrados: 1
+2025-03-20 12:48:35,204 - INFO - Mercado processado com produtos: Angeloni Supermercado - Joinville
+2025-03-20 12:48:35,205 - INFO - Pesquisando 'batata' no mercado Fort Atacadista - 305 Joinville...
+2025-03-20 12:48:35,205 - INFO - Acessando o mercado: https://www.ifood.com.br/delivery/joinville-sc/fort-atacadista---305-joinville-bucarein/8b50bb7a-d066-4343-932c-b75b1a67d59f
+2025-03-20 12:48:36,370 - INFO - Pesquisando por 'batata' em Fort Atacadista - 305 Joinville (filtro numérico: None)
+2025-03-20 12:48:36,838 - INFO - Aguardando primeiros resultados da pesquisa...
+2025-03-20 12:48:37,618 - INFO - Rolando a página para carregar até 1 itens...
+2025-03-20 12:48:37,648 - INFO - Carregados 93 itens, suficiente para 1.
+2025-03-20 12:48:37,649 - INFO - Total de produtos encontrados para 'batata': 1
+2025-03-20 12:48:37,740 - INFO - Produto 1 processado: Batata Pré-Frita Fina Congelada Easychef 2kg
+2025-03-20 12:48:38,249 - INFO - Imagem salva em: C:\Python3\projetos\ifood\ifood-scraper-backend\imagens_ifood\produto_Fort Atacadista - 305 Joinville_Batata Pré-Frita Fina Congelada Easychef 2kg.png
+2025-03-20 12:48:38,252 - INFO - Total de produtos filtrados: 1
+2025-03-20 12:48:39,538 - INFO - Mercado processado com produtos: Fort Atacadista - 305 Joinville
+2025-03-20 12:48:39,539 - INFO - Calculando a melhor opção de compra...
+2025-03-20 12:48:39,541 - INFO - Mercado mais barato: Mercado Dona Janda - R$ R$ 8.85
+2025-03-20 12:48:39,545 - INFO - Dados finais salvos em: C:\Python3\projetos\ifood\ifood-scraper-backend\dados_ifood\ifood_data.json
+2025-03-20 12:48:42,617 - INFO - Navegador fechado.
+2025-03-20 12:48:42,621 - INFO - Scraping concluído, resultado lido de C:\Python3\projetos\ifood\ifood-scraper-backend\dados_ifood\ifood_data.json

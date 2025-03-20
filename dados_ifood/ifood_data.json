@@ -1,0 +1,343 @@
+{
+    "melhor_compra": {
+        "mercado": "Mercado Dona Janda",
+        "custo_total": "R$ 8.85",
+        "produtos_escolhidos": [
+            {
+                "item": "batata",
+                "quantidade": 1,
+                "produto": {
+                    "id": 1,
+                    "nome": "Batata Inglesa Lavada Kg",
+                    "preco": "R$ 1,86",
+                    "detalhes": "Compra por peso",
+                    "imagem_url": "https://static.ifood-static.com.br/image/upload/t_low/pratos/820af392-002c-47b1-bfae-d7ef31743c7f/202309181102_zpvg5txyc9.jpg?imwidth=256",
+                    "imagem_local": "/imagens_ifood/produto_Mercado Dona Janda_Batata Inglesa Lavada Kg.png"
+                },
+                "custo": 1.86
+            }
+        ]
+    },
+    "mercados": [
+        {
+            "id": 1,
+            "nome": "Atacadão Joinville",
+            "rating": "4.7",
+            "distancia": "4.7\n•\nMercado\n•\n4.6 km",
+            "tempo_entrega": "146-156 min",
+            "custo_entrega": "R$ 24,99",
+            "imagem_url": "https://static.ifood-static.com.br/image/upload/t_medium/logosgde/b8233492-fa68-40bd-a232-86038a33fe5f/202310051444_CA8C.png?imwidth=256",
+            "url": "https://www.ifood.com.br/delivery/joinville-sc/atacadao-joinville-gloria/b8233492-fa68-40bd-a232-86038a33fe5f",
+            "imagem_local": "/imagens_ifood/Atacadão Joinville.png",
+            "produtos": {
+                "batata": [
+                    {
+                        "id": 1,
+                        "nome": "Batata Palha Extrafina Yoki 100g",
+                        "preco": "R$ 9,70",
+                        "detalhes": "",
+                        "imagem_url": "https://static.ifood-static.com.br/image/upload/t_low/pratos/820af392-002c-47b1-bfae-d7ef31743c7f/202411281104_l8l853lu4i.png?imwidth=256",
+                        "imagem_local": "/imagens_ifood/produto_Atacadão Joinville_Batata Palha Extrafina Yoki 100g.png"
+                    }
+                ]
+            },
+            "custo_total": "R$ 34.69",
+            "produtos_escolhidos": [
+                {
+                    "item": "batata",
+                    "quantidade": 1,
+                    "produto": {
+                        "id": 1,
+                        "nome": "Batata Palha Extrafina Yoki 100g",
+                        "preco": "R$ 9,70",
+                        "detalhes": "",
+                        "imagem_url": "https://static.ifood-static.com.br/image/upload/t_low/pratos/820af392-002c-47b1-bfae-d7ef31743c7f/202411281104_l8l853lu4i.png?imwidth=256",
+                        "imagem_local": "/imagens_ifood/produto_Atacadão Joinville_Batata Palha Extrafina Yoki 100g.png"
+                    },
+                    "custo": 9.7
+                }
+            ],
+            "combinacoes": []
+        },
+        {
+            "id": 2,
+            "nome": "Giassi - América",
+            "rating": "4.8",
+            "distancia": "4.8\n•\nMercado\n•\n2.3 km",
+            "tempo_entrega": "33-43 min",
+            "custo_entrega": "R$ 12,99",
+            "imagem_url": "https://static.ifood-static.com.br/image/upload/t_medium/logosgde/6925b972-9b4d-47bc-a222-7f4ed065cefb_GIASS_ERICA.png?imwidth=256",
+            "url": "https://www.ifood.com.br/delivery/joinville-sc/giassi---america-america/f09948f4-5521-4838-8f5d-997c4f3ff59d",
+            "imagem_local": "/imagens_ifood/Giassi - América.png",
+            "produtos": {
+                "batata": [
+                    {
+                        "id": 1,
+                        "nome": "Batata Sabor Creme e Cebola Pringles 109g",
+                        "preco": "R$ 12,09\n-21%\nR$ 15,29",
+                        "detalhes": "Embalagem 109g",
+                        "imagem_url": "https://static.ifood-static.com.br/image/upload/t_low/pratos/820af392-002c-47b1-bfae-d7ef31743c7f/202305121328_dpvjl9birs.jpg?imwidth=256",
+                        "imagem_local": "/imagens_ifood/produto_Giassi - América_Batata Sabor Creme e Cebola Pringles 109g.png"
+                    }
+                ]
+            },
+            "custo_total": "R$ 25.08",
+            "produtos_escolhidos": [
+                {
+                    "item": "batata",
+                    "quantidade": 1,
+                    "produto": {
+                        "id": 1,
+                        "nome": "Batata Sabor Creme e Cebola Pringles 109g",
+                        "preco": "R$ 12,09\n-21%\nR$ 15,29",
+                        "detalhes": "Embalagem 109g",
+                        "imagem_url": "https://static.ifood-static.com.br/image/upload/t_low/pratos/820af392-002c-47b1-bfae-d7ef31743c7f/202305121328_dpvjl9birs.jpg?imwidth=256",
+                        "imagem_local": "/imagens_ifood/produto_Giassi - América_Batata Sabor Creme e Cebola Pringles 109g.png"
+                    },
+                    "custo": 12.09
+                }
+            ],
+            "combinacoes": []
+        },
+        {
+            "id": 3,
+            "nome": "Bistek Joinville",
+            "rating": "4.9",
+            "distancia": "4.9\n•\nMercado\n•\n3.5 km",
+            "tempo_entrega": "42-52 min",
+            "custo_entrega": "R$ 18,98",
+            "imagem_url": "https://static.ifood-static.com.br/image/upload/t_medium/logosgde/f03557e2-d676-4657-b8cd-9adcdc3375db/202211281443_rSfY_i.jpg?imwidth=256",
+            "url": "https://www.ifood.com.br/delivery/joinville-sc/bistek-joinville-aventureiro/f03557e2-d676-4657-b8cd-9adcdc3375db",
+            "imagem_local": "/imagens_ifood/Bistek Joinville.png",
+            "produtos": {
+                "batata": [
+                    {
+                        "id": 1,
+                        "nome": "Batata Lavada 700g",
+                        "preco": "R$ 2,96",
+                        "detalhes": "",
+                        "imagem_url": "https://static.ifood-static.com.br/image/upload/t_low/pratos/820af392-002c-47b1-bfae-d7ef31743c7f/202403201612_usu9sot82qs.png?imwidth=256",
+                        "imagem_local": "/imagens_ifood/produto_Bistek Joinville_Batata Lavada 700g.png"
+                    }
+                ]
+            },
+            "custo_total": "R$ 21.94",
+            "produtos_escolhidos": [
+                {
+                    "item": "batata",
+                    "quantidade": 1,
+                    "produto": {
+                        "id": 1,
+                        "nome": "Batata Lavada 700g",
+                        "preco": "R$ 2,96",
+                        "detalhes": "",
+                        "imagem_url": "https://static.ifood-static.com.br/image/upload/t_low/pratos/820af392-002c-47b1-bfae-d7ef31743c7f/202403201612_usu9sot82qs.png?imwidth=256",
+                        "imagem_local": "/imagens_ifood/produto_Bistek Joinville_Batata Lavada 700g.png"
+                    },
+                    "custo": 2.96
+                }
+            ],
+            "combinacoes": []
+        },
+        {
+            "id": 4,
+            "nome": "Mercado Brasilia - Iririu",
+            "rating": "4.1",
+            "distancia": "4.1\n•\nMercado\n•\n3.8 km",
+            "tempo_entrega": "42-52 min",
+            "custo_entrega": "R$ 19,48",
+            "imagem_url": "https://static.ifood-static.com.br/image/upload/t_medium/logosgde/2c9c2f37-57fd-4df0-b849-37759f9a889e/202209291845_q7Jm_i.jpg?imwidth=256",
+            "url": "https://www.ifood.com.br/delivery/joinville-sc/mercado-brasilia---iririu-jardim-iririu/2c9c2f37-57fd-4df0-b849-37759f9a889e",
+            "imagem_local": "/imagens_ifood/Mercado Brasilia - Iririu.png",
+            "produtos": {
+                "batata": [
+                    {
+                        "id": 1,
+                        "nome": "Batata Pré Frita Mais Batata Bem Brasil 400g",
+                        "preco": "R$ 10,25",
+                        "detalhes": "Pacote 400g",
+                        "imagem_url": "https://static.ifood-static.com.br/image/upload/t_low/pratos/820af392-002c-47b1-bfae-d7ef31743c7f/202401031605_eyfyxg42pie.jpeg?imwidth=256",
+                        "imagem_local": "/imagens_ifood/produto_Mercado Brasilia - Iririu_Batata Pré Frita Mais Batata Bem Brasil 400g.png"
+                    }
+                ]
+            },
+            "custo_total": "R$ 29.73",
+            "produtos_escolhidos": [
+                {
+                    "item": "batata",
+                    "quantidade": 1,
+                    "produto": {
+                        "id": 1,
+                        "nome": "Batata Pré Frita Mais Batata Bem Brasil 400g",
+                        "preco": "R$ 10,25",
+                        "detalhes": "Pacote 400g",
+                        "imagem_url": "https://static.ifood-static.com.br/image/upload/t_low/pratos/820af392-002c-47b1-bfae-d7ef31743c7f/202401031605_eyfyxg42pie.jpeg?imwidth=256",
+                        "imagem_local": "/imagens_ifood/produto_Mercado Brasilia - Iririu_Batata Pré Frita Mais Batata Bem Brasil 400g.png"
+                    },
+                    "custo": 10.25
+                }
+            ],
+            "combinacoes": []
+        },
+        {
+            "id": 5,
+            "nome": "Doca Supermercadinhos",
+            "rating": "4.5",
+            "distancia": "4.5\n•\nMercado\n•\n9.2 km",
+            "tempo_entrega": "Amanhã, entre 09h-11h",
+            "custo_entrega": "R$ 21,50",
+            "imagem_url": "https://static.ifood-static.com.br/image/upload/t_medium/logosgde/746654bf-0542-4565-b081-18eae391939c/202303201624_cuIf_i.jpg?imwidth=256",
+            "url": "https://www.ifood.com.br/delivery/joinville-sc/doca-supermercadinhos-santa-catarina/746654bf-0542-4565-b081-18eae391939c",
+            "imagem_local": "/imagens_ifood/Doca Supermercadinhos.png",
+            "produtos": {
+                "batata": [
+                    {
+                        "id": 1,
+                        "nome": "Batata Kg",
+                        "preco": "R$ 0,75",
+                        "detalhes": "Compra por peso",
+                        "imagem_url": "https://static.ifood-static.com.br/image/upload/t_low/pratos/820af392-002c-47b1-bfae-d7ef31743c7f/202309181114_rrn3k6s589i.jpg?imwidth=256",
+                        "imagem_local": "/imagens_ifood/produto_Doca Supermercadinhos_Batata Kg.png"
+                    }
+                ]
+            },
+            "custo_total": "R$ 22.25",
+            "produtos_escolhidos": [
+                {
+                    "item": "batata",
+                    "quantidade": 1,
+                    "produto": {
+                        "id": 1,
+                        "nome": "Batata Kg",
+                        "preco": "R$ 0,75",
+                        "detalhes": "Compra por peso",
+                        "imagem_url": "https://static.ifood-static.com.br/image/upload/t_low/pratos/820af392-002c-47b1-bfae-d7ef31743c7f/202309181114_rrn3k6s589i.jpg?imwidth=256",
+                        "imagem_local": "/imagens_ifood/produto_Doca Supermercadinhos_Batata Kg.png"
+                    },
+                    "custo": 0.75
+                }
+            ],
+            "combinacoes": []
+        },
+        {
+            "id": 6,
+            "nome": "Mercado Dona Janda",
+            "rating": "4.6",
+            "distancia": "4.6\n•\nMercado\n•\n0.3 km",
+            "tempo_entrega": "60-70 min",
+            "custo_entrega": "R$ 6,99",
+            "imagem_url": "https://static.ifood-static.com.br/image/upload/t_medium/logosgde/0a93a7fb-09a9-4c6e-a6b0-32a125194c16/202405231334_xHdz_i.jpg?imwidth=256",
+            "url": "https://www.ifood.com.br/delivery/joinville-sc/mercado-dona-janda-bom-retiro/0a93a7fb-09a9-4c6e-a6b0-32a125194c16",
+            "imagem_local": "/imagens_ifood/Mercado Dona Janda.png",
+            "produtos": {
+                "batata": [
+                    {
+                        "id": 1,
+                        "nome": "Batata Inglesa Lavada Kg",
+                        "preco": "R$ 1,86",
+                        "detalhes": "Compra por peso",
+                        "imagem_url": "https://static.ifood-static.com.br/image/upload/t_low/pratos/820af392-002c-47b1-bfae-d7ef31743c7f/202309181102_zpvg5txyc9.jpg?imwidth=256",
+                        "imagem_local": "/imagens_ifood/produto_Mercado Dona Janda_Batata Inglesa Lavada Kg.png"
+                    }
+                ]
+            },
+            "custo_total": "R$ 8.85",
+            "produtos_escolhidos": [
+                {
+                    "item": "batata",
+                    "quantidade": 1,
+                    "produto": {
+                        "id": 1,
+                        "nome": "Batata Inglesa Lavada Kg",
+                        "preco": "R$ 1,86",
+                        "detalhes": "Compra por peso",
+                        "imagem_url": "https://static.ifood-static.com.br/image/upload/t_low/pratos/820af392-002c-47b1-bfae-d7ef31743c7f/202309181102_zpvg5txyc9.jpg?imwidth=256",
+                        "imagem_local": "/imagens_ifood/produto_Mercado Dona Janda_Batata Inglesa Lavada Kg.png"
+                    },
+                    "custo": 1.86
+                }
+            ],
+            "combinacoes": []
+        },
+        {
+            "id": 7,
+            "nome": "Angeloni Supermercado - Joinville",
+            "rating": "4.4",
+            "distancia": "4.4\n•\nMercado\n•\n0.5 km",
+            "tempo_entrega": "27-37 min",
+            "custo_entrega": "R$ 10,99",
+            "imagem_url": "https://static.ifood-static.com.br/image/upload/t_medium/logosgde/202009241636_cd69fea9-0c5d-4d4b-94e5-605f7be21f83.png?imwidth=256",
+            "url": "https://www.ifood.com.br/delivery/joinville-sc/angeloni-supermercado---joinville-america/cd69fea9-0c5d-4d4b-94e5-605f7be21f83",
+            "imagem_local": "/imagens_ifood/Angeloni Supermercado - Joinville.png",
+            "produtos": {
+                "batata": [
+                    {
+                        "id": 1,
+                        "nome": "Batata Frita Lisa Clássica Lays 70g",
+                        "preco": "R$ 9,89",
+                        "detalhes": "Pacote 70g",
+                        "imagem_url": "https://static.ifood-static.com.br/image/upload/t_low/pratos/820af392-002c-47b1-bfae-d7ef31743c7f/202407111038_ggp8lc1gvuv.png?imwidth=256",
+                        "imagem_local": "/imagens_ifood/produto_Angeloni Supermercado - Joinville_Batata Frita Lisa Clássica Lays 70g.png"
+                    }
+                ]
+            },
+            "custo_total": "R$ 20.88",
+            "produtos_escolhidos": [
+                {
+                    "item": "batata",
+                    "quantidade": 1,
+                    "produto": {
+                        "id": 1,
+                        "nome": "Batata Frita Lisa Clássica Lays 70g",
+                        "preco": "R$ 9,89",
+                        "detalhes": "Pacote 70g",
+                        "imagem_url": "https://static.ifood-static.com.br/image/upload/t_low/pratos/820af392-002c-47b1-bfae-d7ef31743c7f/202407111038_ggp8lc1gvuv.png?imwidth=256",
+                        "imagem_local": "/imagens_ifood/produto_Angeloni Supermercado - Joinville_Batata Frita Lisa Clássica Lays 70g.png"
+                    },
+                    "custo": 9.89
+                }
+            ],
+            "combinacoes": []
+        },
+        {
+            "id": 8,
+            "nome": "Fort Atacadista - 305 Joinville",
+            "rating": "Novidade",
+            "distancia": "Novidade\n•\nMercado\n•\n5.1 km",
+            "tempo_entrega": "140-150 min",
+            "custo_entrega": "R$ 17,48",
+            "imagem_url": "https://static.ifood-static.com.br/image/upload/t_medium/logosgde/8b50bb7a-d066-4343-932c-b75b1a67d59f/202403061937_INLG.png?imwidth=256",
+            "url": "https://www.ifood.com.br/delivery/joinville-sc/fort-atacadista---305-joinville-bucarein/8b50bb7a-d066-4343-932c-b75b1a67d59f",
+            "imagem_local": "/imagens_ifood/Fort Atacadista - 305 Joinville.png",
+            "produtos": {
+                "batata": [
+                    {
+                        "id": 1,
+                        "nome": "Batata Pré-Frita Fina Congelada Easychef 2kg",
+                        "preco": "R$ 32,84\n-14%\nR$ 38,02",
+                        "detalhes": "Embalagem 2kg",
+                        "imagem_url": "https://static.ifood-static.com.br/image/upload/t_low/pratos/820af392-002c-47b1-bfae-d7ef31743c7f/202202181648_1dciegclic1.jpg?imwidth=256",
+                        "imagem_local": "/imagens_ifood/produto_Fort Atacadista - 305 Joinville_Batata Pré-Frita Fina Congelada Easychef 2kg.png"
+                    }
+                ]
+            },
+            "custo_total": "R$ 50.32",
+            "produtos_escolhidos": [
+                {
+                    "item": "batata",
+                    "quantidade": 1,
+                    "produto": {
+                        "id": 1,
+                        "nome": "Batata Pré-Frita Fina Congelada Easychef 2kg",
+                        "preco": "R$ 32,84\n-14%\nR$ 38,02",
+                        "detalhes": "Embalagem 2kg",
+                        "imagem_url": "https://static.ifood-static.com.br/image/upload/t_low/pratos/820af392-002c-47b1-bfae-d7ef31743c7f/202202181648_1dciegclic1.jpg?imwidth=256",
+                        "imagem_local": "/imagens_ifood/produto_Fort Atacadista - 305 Joinville_Batata Pré-Frita Fina Congelada Easychef 2kg.png"
+                    },
+                    "custo": 32.84
+                }
+            ],
+            "combinacoes": []
+        }
+    ]
+}

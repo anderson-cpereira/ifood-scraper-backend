@@ -1,0 +1,23 @@
+# config.yaml
+urls:
+  markets: "https://www.ifood.com.br/mercados"
+  pharmacies: "https://www.ifood.com.br/farmacia"
+  restaurants: "https://www.ifood.com.br/restaurantes"
+  drinks: "https://www.ifood.com.br/bebidas"
+selectors:
+  markets:
+    card: "merchant-v2__link"
+    name: "merchant-v2__name"
+    rating: "cardstack-rating"
+    image: "merchant-v2__figure"
+    info: "merchant-v2__info"
+    footer: "merchant-v2__footer"
+  products:
+    card: "product-card-wrapper"
+    name: "product-card__description"
+    price: "product-card__price"
+    details: "product-card__details"
+    image: "product-card-image__content"
+    search_field: "market-catalog-search__input"
+    total_records: "market-search-catalog__subtitle"
+  location_button: "btn-address--full-size"
