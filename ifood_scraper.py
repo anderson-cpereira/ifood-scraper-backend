@@ -83,7 +83,7 @@ def configurar_driver(headless: bool = True) -> webdriver.Chrome:
     if platform.system() == "Windows":
         chromedriver_path = os.path.join(os.path.dirname(__file__), "chromedriver.exe")
     else:  # Linux (Render)
-        chromedriver_path = "/usr/local/bin/chromedriver"
+        chromedriver_path = os.path.join(os.path.dirname(__file__), "chromedriver", "chromedriver")
 
     if not os.path.exists(chromedriver_path):
         raise FileNotFoundError(f"ChromeDriver não encontrado em: {chromedriver_path}")
@@ -97,7 +97,6 @@ def configurar_driver(headless: bool = True) -> webdriver.Chrome:
     except WebDriverException as e:
         logger.error(f"Falha ao iniciar o ChromeDriver: {e}")
         raise
-
 '''
 def configurar_driver(headless: bool = True) -> webdriver.Chrome:
     chrome_options = Options()
