@@ -83,7 +83,9 @@ def configurar_driver(headless: bool = True) -> webdriver.Chrome:
         chrome_options.add_argument("--disable-popup-blocking")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
-    # Removido --user-data-dir para testar o comportamento padrão
+    # Forçar um diretório temporário único
+    temp_user_data_dir = tempfile.mkdtemp(prefix="chrome_user_data_")
+    chrome_options.add_argument(f"--user-data-dir={temp_user_data_dir}")
     chrome_options.add_argument("user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36")
     chrome_options.add_argument("--ignore-certificate-errors")
     chrome_options.add_argument("--disable-web-security")
@@ -121,6 +123,7 @@ def configurar_driver(headless: bool = True) -> webdriver.Chrome:
     servico = Service(executable_path=chromedriver_path)
     logger.info(f"ChromeDriver path: {chromedriver_path}")
     logger.info(f"Chrome options: {chrome_options.arguments}")
+    logger.info(f"User data dir: {temp_user_data_dir}")
 
     # Usar Xvfb no Linux para simular display
     if platform.system() != "Windows" and headless:
@@ -129,6 +132,8 @@ def configurar_driver(headless: bool = True) -> webdriver.Chrome:
         logger.info("Xvfb iniciado para simular display virtual.")
 
     try:
+        # Pequeno atraso para evitar concorrência
+        time.sleep(1)
         driver = webdriver.Chrome(service=servico, options=chrome_options)
         driver.set_window_size(1280, 720)
         logger.info("Driver configurado com sucesso (headless={}).".format(headless))
@@ -140,6 +145,9 @@ def configurar_driver(headless: bool = True) -> webdriver.Chrome:
         if platform.system() != "Windows" and headless and 'vdisplay' in locals():
             vdisplay.stop()
             logger.info("Xvfb encerrado.")
+        if os.path.exists(temp_user_data_dir):
+            shutil.rmtree(temp_user_data_dir, ignore_errors=True)
+            logger.info(f"Diretório temporário {temp_user_data_dir} removido.")
 
 '''
 def configurar_driver(headless: bool = True) -> webdriver.Chrome:
