@@ -83,6 +83,87 @@ def configurar_driver(headless: bool = True) -> webdriver.Chrome:
         chrome_options.add_argument("--disable-popup-blocking")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
+    temp_user_data_dir = tempfile.mkdtemp(prefix="chrome_user_data_")
+    chrome_options.add_argument(f"--user-data-dir={temp_user_data_dir}")
+    chrome_options.add_argument("user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36")
+    chrome_options.add_argument("--ignore-certificate-errors")
+    chrome_options.add_argument("--disable-web-security")
+    chrome_options.add_argument("--verbose")
+    chrome_options.add_argument("--log-level=0")
+    chrome_options.add_argument("--no-first-run")
+    chrome_options.add_argument("--disable-sync")
+    chrome_options.add_experimental_option("prefs", {
+        "profile.default_content_setting_values.geolocation": 1
+    })
+
+    # Detectar o ambiente e definir o caminho do Chrome e ChromeDriver
+    if platform.system() == "Windows":
+        chromedriver_path = os.path.join(os.path.dirname(__file__), "chromedriver.exe")
+        # Para Windows, você pode definir um chrome_binary local se necessário
+    else:  # Linux (Docker ou Render)
+        chromedriver_path = "/usr/local/bin/chromedriver"  # Caminho onde instalamos no Docker
+        chrome_binary = "/usr/bin/google-chrome"  # Caminho padrão do Chrome no Linux
+        if os.path.exists(chrome_binary):
+            if not os.access(chrome_binary, os.X_OK):
+                logger.error(f"Chrome binary não é executável: {chrome_binary}")
+                raise FileNotFoundError(f"Chrome binary não é executável: {chrome_binary}")
+            chrome_options.binary_location = chrome_binary
+            try:
+                result = subprocess.run([chrome_binary, "--version"], capture_output=True, text=True)
+                logger.info(f"Versão do Chrome: {result.stdout}")
+                if result.stderr:
+                    logger.error(f"Erro ao testar Chrome binary: {result.stderr}")
+                if result.returncode != 0:
+                    logger.error(f"Chrome binary retornou código de erro: {result.returncode}")
+            except Exception as e:
+                logger.error(f"Falha ao testar o Chrome binary: {e}")
+        else:
+            raise FileNotFoundError(f"Chrome binary não encontrado em: {chrome_binary}")
+
+    if not os.path.exists(chromedriver_path):
+        raise FileNotFoundError(f"ChromeDriver não encontrado em: {chromedriver_path}")
+    servico = Service(executable_path=chromedriver_path)
+    logger.info(f"ChromeDriver path: {chromedriver_path}")
+    logger.info(f"Chrome options: {chrome_options.arguments}")
+    logger.info(f"User data dir: {temp_user_data_dir}")
+
+    if platform.system() != "Windows" and headless:
+        vdisplay = Xvfb(width=1280, height=720)
+        vdisplay.start()
+        logger.info("Xvfb iniciado para simular display virtual.")
+
+    try:
+        time.sleep(1)
+        driver = webdriver.Chrome(service=servico, options=chrome_options)
+        driver.set_window_size(1280, 720)
+        logger.info("Driver configurado com sucesso (headless={}).".format(headless))
+        return driver
+    except WebDriverException as e:
+        logger.error(f"Falha ao iniciar o ChromeDriver: {e}")
+        raise
+    finally:
+        if platform.system() != "Windows" and headless and 'vdisplay' in locals():
+            vdisplay.stop()
+            logger.info("Xvfb encerrado.")
+        if os.path.exists(temp_user_data_dir):
+            shutil.rmtree(temp_user_data_dir, ignore_errors=True)
+            logger.info(f"Diretório temporário {temp_user_data_dir} removido.")
+
+'''    
+def configurar_driver(headless: bool = True) -> webdriver.Chrome:
+    chrome_options = Options()
+    if headless:
+        chrome_options.add_argument("--headless=new")
+        chrome_options.add_argument("--disable-gpu")
+        chrome_options.add_argument("--disable-software-rasterizer")
+        chrome_options.add_argument("--remote-debugging-port=9222")
+        chrome_options.add_argument("--disable-extensions")
+        chrome_options.add_argument("--disable-background-networking")
+        chrome_options.add_argument("--disable-infobars")
+        chrome_options.add_argument("--disable-notifications")
+        chrome_options.add_argument("--disable-popup-blocking")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
     # Forçar um diretório temporário único
     temp_user_data_dir = tempfile.mkdtemp(prefix="chrome_user_data_")
     chrome_options.add_argument(f"--user-data-dir={temp_user_data_dir}")
@@ -151,7 +232,7 @@ def configurar_driver(headless: bool = True) -> webdriver.Chrome:
         if os.path.exists(temp_user_data_dir):
             shutil.rmtree(temp_user_data_dir, ignore_errors=True)
             logger.info(f"Diretório temporário {temp_user_data_dir} removido.")
-
+'''
 '''
 def configurar_driver(headless: bool = True) -> webdriver.Chrome:
     chrome_options = Options()
