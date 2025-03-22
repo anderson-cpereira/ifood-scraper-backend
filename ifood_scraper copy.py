@@ -25,12 +25,11 @@ import warnings
 import json
 import base64
 import yaml
+import platform
 import subprocess  # Adicionado aqui
+from xvfbwrapper import Xvfb
 import tempfile
 import shutil
-import platform
-if platform.system() != "Windows":
-    from xvfbwrapper import Xvfb
 
 # Configuração de logging
 logging.basicConfig(
@@ -57,217 +56,208 @@ def carregar_config(caminho_config: str = "./config.yaml") -> Dict[str, Any]:
 def validar_seletores(type_search: str, driver: webdriver.Chrome, config: Dict[str, Any]) -> bool:
     """Valida se os seletores do config.yaml estão funcionando."""
     try:
-        # Mapear type_search para a chave correta no config
-        type_mapping = {
-            "M": "markets",
-            "P": "pharmacies",
-            "R": "restaurants",
-            "D": "drinks"
-        }
-        config_key = type_mapping.get(type_search, "markets")
-        
-        url = config["urls"].get(config_key)
-        if not url:
-            logger.error(f"URL não encontrada para type_search='{type_search}' no config.yaml")
-            return False
-        
-        logger.info(f"Navegando para {url} para validar seletores...")
-        driver.get(url)
-        time.sleep(2)  # Dar tempo para a página carregar
-        logger.info(f"HTML inicial da página: {driver.page_source[:2000]}")  # Log para debug
-        
-        location_button_selector = config["selectors"]["location_button"]
-        logger.info(f"Esperando o elemento com classe '{location_button_selector}'...")
-        WebDriverWait(driver, 20).until(
-            EC.presence_of_element_located((By.CLASS_NAME, location_button_selector))
+        if type_search == 'M':
+            driver.get(config["urls"]["markets"])
+        else:
+            driver.get(config["urls"]["pharmacies"])
+        WebDriverWait(driver, 5).until(
+            EC.presence_of_element_located((By.CLASS_NAME, config["selectors"]["location_button"]))
         )
         logger.info("Seletores principais validados com sucesso.")
         return True
-    except TimeoutException as e:
-        logger.error(f"Seletores do config.yaml não encontrados: {e}")
-        logger.info(f"HTML da página: {driver.page_source[:2000]}")
-        return False
-    except Exception as e:
-        logger.error(f"Erro inesperado ao validar seletores: {e}")
+    except TimeoutException:
+        logger.error("Seletores do config.yaml não encontrados. Verifique o arquivo de configuração.")
         return False
     
-'''
 def configurar_driver(headless: bool = True) -> webdriver.Chrome:
-    import subprocess
-    import random
-    import tempfile
-    
-    # Usar headless=True para Docker
-    headless = True
-    
-    # Limpar processos e arquivos residuais
-    if platform.system() != "Windows":
-        try:
-            subprocess.run(["killall", "-9", "chrome"], check=False)
-            subprocess.run(["killall", "-9", "chromedriver"], check=False)
-            subprocess.run(["pkill", "-9", "-f", "chrome_crashpad"], check=False)
-            subprocess.run(["rm", "-rf", "/tmp/.com.google.Chrome.*"], check=False)
-            subprocess.run(["rm", "-rf", "/tmp/.org.chromium.Chromium.*"], check=False)
-            subprocess.run(["rm", "-rf", "/root/.config/google-chrome"], check=False)
-            subprocess.run(["rm", "-rf", "/root/.config/chromium"], check=False)  # Para Chromium
-            logger.info("Processos e arquivos residuais do Chrome e ChromeDriver encerrados.")
-        except Exception as e:
-            logger.warning(f"Erro ao tentar encerrar processos ou limpar arquivos: {e}")
-
     chrome_options = Options()
     if headless:
         chrome_options.add_argument("--headless=new")
+        chrome_options.add_argument("--disable-gpu")
+        chrome_options.add_argument("--disable-software-rasterizer")
+        chrome_options.add_argument("--remote-debugging-port=9222")
+        chrome_options.add_argument("--disable-extensions")
+        chrome_options.add_argument("--disable-background-networking")
+        chrome_options.add_argument("--disable-infobars")
+        chrome_options.add_argument("--disable-notifications")
+        chrome_options.add_argument("--disable-popup-blocking")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
+    temp_user_data_dir = tempfile.mkdtemp(prefix="chrome_user_data_")
+    chrome_options.add_argument(f"--user-data-dir={temp_user_data_dir}")
     chrome_options.add_argument("user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36")
-    debug_port = random.randint(9000, 9999)
-    chrome_options.add_argument(f"--remote-debugging-port={debug_port}")
-    user_data_dir = tempfile.mkdtemp(prefix="chrome_profile_")
-    chrome_options.add_argument(f"--user-data-dir={user_data_dir}")
-    chrome_options.add_argument("--disable-extensions")
-    chrome_options.add_argument("--disable-sync")
+    chrome_options.add_argument("--ignore-certificate-errors")
+    chrome_options.add_argument("--disable-web-security")
+    chrome_options.add_argument("--verbose")
+    chrome_options.add_argument("--log-level=0")
     chrome_options.add_argument("--no-first-run")
-    chrome_options.add_argument("--disable-background-networking")
+    chrome_options.add_argument("--disable-sync")
+    chrome_options.add_experimental_option("prefs", {
+        "profile.default_content_setting_values.geolocation": 1
+    })
 
-    chromedriver_path = "/usr/local/bin/chromedriver"
-    chrome_binary = "/usr/bin/google-chrome"
-
-    if os.path.exists(chrome_binary):
-        chrome_options.binary_location = chrome_binary
-        try:
-            result = subprocess.run([chrome_binary, "--version"], capture_output=True, text=True)
-            logger.info(f"Versão do Chrome: {result.stdout.strip()}")
-        except Exception as e:
-            logger.error(f"Falha ao testar o Chrome binary: {e}")
-    else:
-        raise FileNotFoundError(f"Chrome binary não encontrado em: {chrome_binary}")
+    # Detectar o ambiente e definir o caminho do Chrome e ChromeDriver
+    if platform.system() == "Windows":
+        chromedriver_path = os.path.join(os.path.dirname(__file__), "chromedriver.exe")
+        # Para Windows, você pode definir um chrome_binary local se necessário
+    else:  # Linux (Docker ou Render)
+        chromedriver_path = "/usr/local/bin/chromedriver"  # Caminho onde instalamos no Docker
+        chrome_binary = "/usr/bin/google-chrome"  # Caminho padrão do Chrome no Linux
+        if os.path.exists(chrome_binary):
+            if not os.access(chrome_binary, os.X_OK):
+                logger.error(f"Chrome binary não é executável: {chrome_binary}")
+                raise FileNotFoundError(f"Chrome binary não é executável: {chrome_binary}")
+            chrome_options.binary_location = chrome_binary
+            try:
+                result = subprocess.run([chrome_binary, "--version"], capture_output=True, text=True)
+                logger.info(f"Versão do Chrome: {result.stdout}")
+                if result.stderr:
+                    logger.error(f"Erro ao testar Chrome binary: {result.stderr}")
+                if result.returncode != 0:
+                    logger.error(f"Chrome binary retornou código de erro: {result.returncode}")
+            except Exception as e:
+                logger.error(f"Falha ao testar o Chrome binary: {e}")
+        else:
+            raise FileNotFoundError(f"Chrome binary não encontrado em: {chrome_binary}")
 
     if not os.path.exists(chromedriver_path):
         raise FileNotFoundError(f"ChromeDriver não encontrado em: {chromedriver_path}")
-    
-    try:
-        result = subprocess.run([chromedriver_path, "--version"], capture_output=True, text=True)
-        logger.info(f"Versão do ChromeDriver: {result.stdout.strip()}")
-    except Exception as e:
-        logger.error(f"Falha ao verificar versão do ChromeDriver: {e}")
-
     servico = Service(executable_path=chromedriver_path)
-    servico.log_path = "/tmp/chromedriver.log"
-    servico.service_args = ["--verbose"]
     logger.info(f"ChromeDriver path: {chromedriver_path}")
     logger.info(f"Chrome options: {chrome_options.arguments}")
-    logger.info(f"User data dir: {user_data_dir}")
+    logger.info(f"User data dir: {temp_user_data_dir}")
+
+    if platform.system() != "Windows" and headless:
+        vdisplay = Xvfb(width=1280, height=720)
+        vdisplay.start()
+        logger.info("Xvfb iniciado para simular display virtual.")
 
     try:
-        time.sleep(2)
+        time.sleep(1)
         driver = webdriver.Chrome(service=servico, options=chrome_options)
         driver.set_window_size(1280, 720)
-        logger.info(f"Driver configurado com sucesso (headless={headless}).")
+        logger.info("Driver configurado com sucesso (headless={}).".format(headless))
         return driver
     except WebDriverException as e:
         logger.error(f"Falha ao iniciar o ChromeDriver: {e}")
-        if os.path.exists("/tmp/chromedriver.log"):
-            with open("/tmp/chromedriver.log", "r") as log_file:
-                logger.error(f"Conteúdo do chromedriver.log: {log_file.read()}")
         raise
     finally:
-        try:
-            subprocess.run(["rm", "-rf", user_data_dir], check=False)
-        except Exception as e:
-            logger.warning(f"Erro ao limpar user-data-dir {user_data_dir}: {e}")
-'''
+        if platform.system() != "Windows" and headless and 'vdisplay' in locals():
+            vdisplay.stop()
+            logger.info("Xvfb encerrado.")
+        if os.path.exists(temp_user_data_dir):
+            shutil.rmtree(temp_user_data_dir, ignore_errors=True)
+            logger.info(f"Diretório temporário {temp_user_data_dir} removido.")
 
+'''    
 def configurar_driver(headless: bool = True) -> webdriver.Chrome:
-    import subprocess
-    import random
-    import tempfile
-    
-    # Usar headless=True para Docker
-    headless = True
-    
-    # Limpar processos e arquivos residuais
-    if platform.system() != "Windows":
-        try:
-            subprocess.run(["killall", "-9", "chrome"], check=False)
-            subprocess.run(["killall", "-9", "chromedriver"], check=False)
-            subprocess.run(["pkill", "-9", "-f", "chrome_crashpad"], check=False)
-            subprocess.run(["rm", "-rf", "/tmp/.com.google.Chrome.*"], check=False)
-            subprocess.run(["rm", "-rf", "/tmp/.org.chromium.Chromium.*"], check=False)
-            subprocess.run(["rm", "-rf", "/root/.config/google-chrome"], check=False)
-            subprocess.run(["rm", "-rf", "/root/.config/chromium"], check=False)
-            logger.info("Processos e arquivos residuais do Chrome e ChromeDriver encerrados.")
-        except Exception as e:
-            logger.warning(f"Erro ao tentar encerrar processos ou limpar arquivos: {e}")
-
     chrome_options = Options()
     if headless:
         chrome_options.add_argument("--headless=new")
+        chrome_options.add_argument("--disable-gpu")
+        chrome_options.add_argument("--disable-software-rasterizer")
+        chrome_options.add_argument("--remote-debugging-port=9222")
+        chrome_options.add_argument("--disable-extensions")
+        chrome_options.add_argument("--disable-background-networking")
+        chrome_options.add_argument("--disable-infobars")
+        chrome_options.add_argument("--disable-notifications")
+        chrome_options.add_argument("--disable-popup-blocking")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36")
-    debug_port = random.randint(9000, 9999)
-    chrome_options.add_argument(f"--remote-debugging-port={debug_port}")
-    user_data_dir = tempfile.mkdtemp(prefix="chrome_profile_")
-    chrome_options.add_argument(f"--user-data-dir={user_data_dir}")
-    chrome_options.add_argument("--disable-extensions")
-    chrome_options.add_argument("--disable-sync")
-    chrome_options.add_argument("--no-first-run")
-    chrome_options.add_argument("--disable-background-networking")
+    # Forçar um diretório temporário único
+    temp_user_data_dir = tempfile.mkdtemp(prefix="chrome_user_data_")
+    chrome_options.add_argument(f"--user-data-dir={temp_user_data_dir}")
+    chrome_options.add_argument("user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36")
     chrome_options.add_argument("--ignore-certificate-errors")
-    chrome_options.add_argument("--allow-insecure-localhost")
-    # Contornar detecção anti-bot
-    chrome_options.add_argument("--disable-blink-features=AutomationControlled")
-    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
-    chrome_options.add_experimental_option("useAutomationExtension", False)
+    chrome_options.add_argument("--disable-web-security")
+    chrome_options.add_argument("--verbose")
+    chrome_options.add_argument("--log-level=0")
+    # Adicionar opções para evitar conflitos de estado
+    chrome_options.add_argument("--no-first-run")
+    chrome_options.add_argument("--disable-sync")
+    chrome_options.add_experimental_option("prefs", {
+        "profile.default_content_setting_values.geolocation": 1
+    })
 
-    chromedriver_path = "/usr/local/bin/chromedriver"
-    chrome_binary = "/usr/bin/google-chrome"
-
-    if os.path.exists(chrome_binary):
-        chrome_options.binary_location = chrome_binary
-        try:
-            result = subprocess.run([chrome_binary, "--version"], capture_output=True, text=True)
-            logger.info(f"Versão do Chrome: {result.stdout.strip()}")
-        except Exception as e:
-            logger.error(f"Falha ao testar o Chrome binary: {e}")
-    else:
-        raise FileNotFoundError(f"Chrome binary não encontrado em: {chrome_binary}")
+    # Detectar o ambiente
+    if platform.system() == "Windows":
+        chromedriver_path = os.path.join(os.path.dirname(__file__), "chromedriver.exe")
+    else:  # Linux (Render)
+        chromedriver_path = os.path.join(os.path.dirname(__file__), "chromedriver", "chromedriver")
+        chrome_binary = os.path.join(os.path.dirname(__file__), "chrome", "chrome")
+        if os.path.exists(chrome_binary):
+            if not os.access(chrome_binary, os.X_OK):
+                logger.error(f"Chrome binary não é executável: {chrome_binary}")
+                raise FileNotFoundError(f"Chrome binary não é executável: {chrome_binary}")
+            chrome_options.binary_location = chrome_binary
+            try:
+                result = subprocess.run([chrome_binary, "--version"], capture_output=True, text=True)
+                logger.info(f"Versão do Chrome: {result.stdout}")
+                if result.stderr:
+                    logger.error(f"Erro ao testar Chrome binary: {result.stderr}")
+                if result.returncode != 0:
+                    logger.error(f"Chrome binary retornou código de erro: {result.returncode}")
+            except Exception as e:
+                logger.error(f"Falha ao testar o Chrome binary: {e}")
+        else:
+            raise FileNotFoundError(f"Chrome binary não encontrado em: {chrome_binary}")
 
     if not os.path.exists(chromedriver_path):
         raise FileNotFoundError(f"ChromeDriver não encontrado em: {chromedriver_path}")
-    
-    try:
-        result = subprocess.run([chromedriver_path, "--version"], capture_output=True, text=True)
-        logger.info(f"Versão do ChromeDriver: {result.stdout.strip()}")
-    except Exception as e:
-        logger.error(f"Falha ao verificar versão do ChromeDriver: {e}")
-
     servico = Service(executable_path=chromedriver_path)
-    servico.log_path = "/tmp/chromedriver.log"
-    servico.service_args = ["--verbose"]
     logger.info(f"ChromeDriver path: {chromedriver_path}")
     logger.info(f"Chrome options: {chrome_options.arguments}")
-    logger.info(f"User data dir: {user_data_dir}")
+    logger.info(f"User data dir: {temp_user_data_dir}")
+
+    # Usar Xvfb no Linux para simular display
+    if platform.system() != "Windows" and headless:
+        vdisplay = Xvfb(width=1280, height=720)
+        vdisplay.start()
+        logger.info("Xvfb iniciado para simular display virtual.")
 
     try:
-        time.sleep(2)
+        # Pequeno atraso para evitar concorrência
+        time.sleep(1)
         driver = webdriver.Chrome(service=servico, options=chrome_options)
         driver.set_window_size(1280, 720)
-        # Remover a propriedade webdriver para evitar detecção
-        driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
-        logger.info(f"Driver configurado com sucesso (headless={headless}).")
+        logger.info("Driver configurado com sucesso (headless={}).".format(headless))
         return driver
     except WebDriverException as e:
         logger.error(f"Falha ao iniciar o ChromeDriver: {e}")
-        if os.path.exists("/tmp/chromedriver.log"):
-            with open("/tmp/chromedriver.log", "r") as log_file:
-                logger.error(f"Conteúdo do chromedriver.log: {log_file.read()}")
         raise
     finally:
-        try:
-            subprocess.run(["rm", "-rf", user_data_dir], check=False)
-        except Exception as e:
-            logger.warning(f"Erro ao limpar user-data-dir {user_data_dir}: {e}")
+        if platform.system() != "Windows" and headless and 'vdisplay' in locals():
+            vdisplay.stop()
+            logger.info("Xvfb encerrado.")
+        if os.path.exists(temp_user_data_dir):
+            shutil.rmtree(temp_user_data_dir, ignore_errors=True)
+            logger.info(f"Diretório temporário {temp_user_data_dir} removido.")
+'''
+'''
+def configurar_driver(headless: bool = True) -> webdriver.Chrome:
+    chrome_options = Options()
+    if headless:
+        chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36")
+    chrome_options.add_argument("--ignore-certificate-errors")
+    chrome_options.add_argument("--disable-web-security")
+    chrome_options.add_argument("--log-level=3")
+    chrome_options.add_experimental_option("prefs", {
+        "profile.default_content_setting_values.geolocation": 1
+    })
+    
+    servico = Service(executable_path="./chromedriver.exe")
+    try:
+        driver = webdriver.Chrome(service=servico, options=chrome_options)
+        driver.set_window_size(1280, 720)
+        logger.info("Driver configurado com sucesso (headless={}).".format(headless))
+        return driver
+    except WebDriverException as e:
+        logger.error(f"Falha ao iniciar o ChromeDriver: {e}")
+        raise
+'''
 
 def limpar_diretorio_imagens(pasta: str = "imagens_ifood") -> None:
     """Apaga todas as imagens existentes no diretório antes de salvar novas."""
@@ -295,29 +285,25 @@ def definir_localizacao_automatica(type_search: str, driver: webdriver.Chrome, c
     if config is None:
         config = carregar_config()
     try:
-        # Evitar recarregar a página, já carregada em validar_seletores
-        # if type_search == 'M':
-        #     driver.get(config["urls"]["markets"])
-        
+        if type_search == 'M':
+            driver.get(config["urls"]["markets"])
+        else:
+            driver.get(config["urls"]["pharmacies"])
         logger.info("Aguardando o botão 'Usar minha localização'...")
-        botao_localizacao = WebDriverWait(driver, 20, poll_frequency=0.2).until(
+        botao_localizacao = WebDriverWait(driver, 10, poll_frequency=0.2).until(
             EC.element_to_be_clickable((By.CLASS_NAME, config["selectors"]["location_button"]))
         )
         botao_localizacao.click()
-        logger.info("Botão de localização clicado, aguardando resposta...")
-        time.sleep(5)  # Dar tempo para a ação ser processada
-        
-        logger.info(f"HTML após clique no botão: {driver.page_source[:2000]}")
         
         logger.info("Aguardando a lista de mercados carregar...")
-        WebDriverWait(driver, 30, poll_frequency=0.2).until(  # Aumentado para 30 segundos
+        WebDriverWait(driver, 10, poll_frequency=0.2).until(
             EC.presence_of_all_elements_located((By.CLASS_NAME, config["selectors"]["markets"]["card"]))
         )
         logger.info("Localização definida e lista de mercados carregada!")
         
     except TimeoutException as e:
         logger.error(f"Erro ao definir localização automática: {e}")
-        logger.info(f"HTML da página: {driver.page_source[:2000]}")
+        logger.info(f"HTML da página: {driver.page_source[:2000]}...")
         raise
     except WebDriverException as e:
         logger.error(f"Erro de WebDriver ao definir localização: {e}")
@@ -519,7 +505,7 @@ def scrape_produtos_mercado(
     except WebDriverException as e:
         logger.error(f"Erro de WebDriver ao raspar produtos do mercado {url_mercado}: {e}")
         raise
-    
+
 @retry(
     stop=stop_after_attempt(3),
     wait=wait_exponential(multiplier=1, min=2, max=10),
@@ -551,49 +537,12 @@ def scrape_ifood_mercados(
 
         logger.info("Configurando o driver...")
         driver = configurar_driver(headless=True)
-        driver.implicitly_wait(30)
         
         if not validar_seletores(type_search, driver, config):
             raise Exception("Validação de seletores falhou. Abortando execução.")
         
-        # Esperar a página carregar completamente
-        logger.info("Aguardando o carregamento completo da página...")
-        wait = WebDriverWait(driver, 30)
-        wait.until(lambda driver: driver.execute_script("return document.readyState") == "complete")
-        logger.info(f"HTML após carregamento inicial: {driver.page_source[:2000]}")
-        
-        # Simular geolocalização para Joinville, SC
-        logger.info("Simulando geolocalização para Joinville, SC...")
-        driver.execute_cdp_cmd("Emulation.setGeolocationOverride", {
-            "latitude": -26.3045,  # Joinville, SC
-            "longitude": -48.8487,
-            "accuracy": 100
-        })
-        
-        # Clicar no botão de localização para usar a geolocalização simulada
-        logger.info("Clicando no botão 'Usar minha localização'...")
-        botao_localizacao = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, config["selectors"]["location_button"])))
-        botao_localizacao.click()
-        time.sleep(10)  # Dar tempo para a página atualizar
-        logger.info(f"HTML após definir localização: {driver.page_source[:2000]}")
-        
-        # Aguardar a lista de mercados carregar
-        logger.info("Aguardando a lista de mercados carregar...")
-        wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, config["selectors"]["markets"]["card"])))
-        logger.info("Lista de mercados carregada com sucesso!")
-        
+        definir_localizacao_automatica(type_search, driver, config)
         items = rolar_pagina(driver, max_items, config["selectors"]["markets"]["card"])
-        logger.info(f"Total de mercados encontrados: {len(items)}")
-        with progresso_lock:
-            if task_id:
-                progresso_por_task[task_id] = {"percentual": 10, "mensagem": f"Carregados {len(items)} mercados..."}
-        # (restante do código continua igual)
-        
-        
-        
-        
-        
-        
         
         logger.info(f"Total de mercados encontrados: {len(items)}")
         with progresso_lock:
@@ -719,7 +668,6 @@ def scrape_ifood_mercados(
         if driver is not None:
             driver.quit()
             logger.info("Navegador fechado.")
-            
 
 def calcular_melhor_compra(dados: List[Dict[str, Any]], itens_pesquisa: List[Dict[str, Any]], max_items: int) -> Dict[str, Any]:
     """Calcula onde é mais barato comprar os itens e retorna resultados estruturados."""
